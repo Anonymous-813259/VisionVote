@@ -1,0 +1,168 @@
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+    background: linear-gradient(135deg, #2a5298, #d6eaff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Header */
+header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background: #1d3557;
+    color: #ffffff;
+}
+
+header .logo {
+    max-width: 50px;
+    margin-right: 15px;
+}
+
+header h1 {
+    font-size: 1.8rem;
+}
+
+/* Main Layout */
+main {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 20px;
+}
+
+.candidate-registration {
+    flex: 2;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.candidate-registration h2 {
+    font-size: 2.5rem;
+    font-family: "Playfair Display", serif;
+    color: #1d3557;
+    margin-bottom: 10px;
+}
+
+.candidate-registration .subtext {
+    font-size: 1rem;
+    color: #457b9d;
+    margin-bottom: 20px;
+}
+
+.registration-form .form-group {
+    margin-bottom: 15px;
+}
+
+.registration-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #1d3557;
+}
+
+.registration-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.registration-form .btn-primary {
+    width: 100%;
+    background: #1d3557;
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.minor-tasks {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task {
+    display: flex;
+    flex-direction: column;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.task i.icon {
+    font-size: 1.5rem;
+    color: #457b9d;
+    margin-bottom: 10px;
+}
+
+.task button {
+    background: #1d3557;
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px;
+    background: #1d3557;
+    color: #ffffff;
+}
+
+footer .watermark {
+    font-style: italic;
+    color: #a8dadc;
+}
+
+/* Back Button - Small (Bottom Corner) */
+.candidate-registration .back-button-small {
+    background: #457b9d;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    position: absolute;
+    bottom: 50%;
+    left: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.candidate-registration .back-button-small:hover {
+    background: #1d3557;
+    transform: scale(1.05);
+}
+
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+}

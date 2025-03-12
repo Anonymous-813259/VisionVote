@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisionVote - Face Authentication</title>
+    <style>
+        /* Import Playfair Display font */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+        /* Global Styles */
+        body {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(#ece9e6, #ffffff);
+            margin: 0;
+            padding: 0;
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        /* Header */
+        header {
+            background-color: #007acc;
+            padding: 20px;
+            text-align: left;
+            color: white;
+            font-size: 1.5rem;
+            /* margin-left: 10px; */
+            padding-left: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        /* Footer */
+        footer {
+            background-color: #ece9e6;
+            padding: 20px;
+            text-align: right;
+            color: #666;
+            opacity: 0.24;
+            padding-right: 20px;
+            padding-bottom: 10px;
+        }
+        /* General styles */
+        /*body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }*/
+
+        h2 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        /* Video container */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        video, canvas {
+            border: 3px solid #555;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        video {
+            max-width: 500px;
+            width: 100%;
+        }
+
+        /* Capture button */
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Status message */
+        #status {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Reauthentication prompt */
+        #reauth {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        #reauth p {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        #reauth button {
+            margin: 5px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-title">VisionVote</div>
+    </header>
+
+    <h2>Face Authentication</h2>
+
+    <div class="container">
+        <video id="video" autoplay playsinline></video>
+        <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
+        <br>
+        <button id="capture">Capture & Verify</button>
+        <p id="status"></p>
+    </div>
+
+    <div id="reauth">
+        <p>Would you like to reauthenticate?</p>
+        <button id="yes">Yes</button>
+        <button id="no">No</button>
+    </div>
+
+    <!-- Footer -->
+    <!-- <footer>
+        <div class="footer-text">By Nithin Reddy</div>
+    </footer> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.7.3/dist/web3.min.js"></script>
+    <script>
+        let safeVoteABI;
+        let safeVoteContract;
+        let safeVoteAddress;
+        let chiefAadhaar;
+        let chiefAddress;
+        let chiefID;
+        let currentAccount;
+
+        async function initContract() {
+            if(window.ethereum){
+                web3 = new Web3(window.ethereum);
+                // const res = await fetch('../build/contracts/SafeVote.json');
+                const res = await fetch('/SafeVote.json');
+                const data = await res.json();
+                safeVoteABI = data['abi'];
+                safeVoteAddress = data['networks']['5777']['address'];
+                safeVoteContract = new web3.eth.Contract(safeVoteABI, safeVoteAddress);
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                currentAccount = accounts[0];
+                console.log('SafeVote Contract: ',safeVoteContract);
+            }
+            else{
+                alert("MetaMask is not detected. Please install it.");
+                window.location.href = '/index';
+            }
+            if(window.ethereum){
+                window.ethereum.on('accountsChanged', function (accounts) {
+                    alert("Account change to: "+accounts[0]);
+                    currentAccount = accounts[0];
+                    console.log("Accounts changed:", accounts);
+                    window.location.href = '/category';
+                });
+            
+                window.ethereum.on('chainChanged', function (chainId) {
+                    console.log("Network changed:", chainId);
+                });
+            }
+        }
+
+        initContract();
+
+        var navigation = false;
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const captureButton = document.getElementById('capture');
+        const statusText = document.getElementById('status');
+        const reauthDiv = document.getElementById('reauth');
+        const yesButton = document.getElementById('yes');
+        const noButton = document.getElementById('no');
+
+        // Start webcam
+        async function startCamera() {
+            await navigator.mediaDevices.getUserMedia({video: true})
+                .then(stream => {
+                    video.srcObject = stream;
+                    video.style.display = "block";
+                })
+                .catch(err => {
+                    console.log("Accessing mobile's front cam");
+                    navigator.mediaDevices.getUserMedia({ video: { facingMode: facingMode } })
+                    .then(stream => { 
+                        video.srcObject = stream;
+                        video.style.display = "block";
+                    })
+                    .catch(err => {
+                        // console.error("Error accessing webcam:", err);
+                        console.log("Primary camera failed, trying another:", error);
+                        navigator.mediaDevices.getUserMedia({
+                            video: { facingMode: "environment" }
+                        })
+                        .then(stream => {
+                            video.srcObject = stream;
+                            video.style.display = "block";
+                        })
+                        .catch(finalError => {
+                            console.log("No camera found!", finalError);
+                            alert("Camera not accessible! Please allow camera permissions.");
+                        })
+                    });
+                });
+        }
+
+        // Stop webcam
+        async function stopCamera() {
+            let stream = video.srcObject;
+            if (stream) {
+                let tracks = stream.getTracks();
+                tracks.forEach(track => track.stop());
+            }
+            video.srcObject = null;
+            video.style.display = "none";
+        }
+
+        // Start webcam initially
+        startCamera();
+
+        // Capture and send image
+        captureButton.addEventListener('click', async () => {
+            // Disable capture button
+            captureButton.disabled = true;
+            statusText.textContent = "Processing... Please wait.";
+
+            // Capture image
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            // Stop video after capture
+            await stopCamera();
+
+            // Convert image to base64
+            const imageData = canvas.toDataURL('image/jpeg');
+
+            try {
+                const response = await fetch('/face_auth', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ image: imageData })
+                });
+
+                const result = await response.json();
+                statusText.textContent = result.message;
+
+                if(result.message != 'Face authenticated'){
+                    let cookies = document.cookie.split(";");
+                    let aadhaar;
+                    let voterID;
+                    for(let ind=0;ind<cookies.length;ind++){
+                        let ele = cookies[ind].split('=');
+                        if(ele[0].trim() == 'aadhaar_number'){
+                            aadhaar = ele[1].trim();
+                        }
+                        else if(ele[0].trim() == 'voter_id'){
+                            voterID = ele[1].trim();
+                        }
+                    }
+                    for(let ind=0;ind<cookies.length;ind++){
+                        let ele = cookies[ind].split('=');
+                        if(ele[0].trim() == 'nextPath'){
+                            if(ele[1].trim()=='/chiefAction'){
+                                chiefAadhaar = await safeVoteContract.methods.chiefAadhaar().call();
+                                chiefID = await safeVoteContract.methods.chiefID().call();
+                                if(chiefAadhaar == aadhaar && chiefID == voterID){
+                                    chiefAddress = await safeVoteContract.methods.chief().call();
+                                    console.log(chiefAddress.toLowerCase() == currentAccount.toLowerCase());
+                                    if(chiefAddress == "0x0000000000000000000000000000000000000000"){
+                                        // Preparing the transaction
+                                        try {
+                                            // simulate the transaction
+                                            await web3.eth.call({
+                                                from: currentAccount,
+                                                to: safeVoteAddress,
+                                                data: safeVoteContract.methods.setChief(aadhaar, voterID).encodeABI(),
+                                            });
+                                            // Prepare the transaction object
+                                            const tx = {
+                                                from: currentAccount,
+                                                to: safeVoteAddress,
+                                                data: safeVoteContract.methods.setChief(aadhaar, voterID).encodeABI(),
+                                            };
+                                            const txHash = await web3.eth.sendTransaction(tx);
+                                            console.log('Transaction Hash: ',txHash);
+                                            // errorMessage.textContent = '';
+                                            alert("Login Success");
+                                            window.location.href = '/chiefAction';
+                                        } catch (error) {
+                                            const ind = error.message.indexOf('revert');
+                                            if(ind!=-1){
+                                                const msg = ((error.message.split('\n'))[2].split(':'));
+                                                console.log(msg[msg.length-1].slice(7,-2));
+                                                alert(msg[msg.length-1].slice(7,-2));
+                                            }
+                                            else{
+                                                console.log("Transaction Error: ",error);
+                                            }
+                                            return ;
+                                        }
+                                    }
+                                    else if(chiefAddress.toLowerCase() != currentAccount.toLowerCase()){
+                                        // errorMessage.textContent = 'Invalid login address!';
+                                        alert("Invalid login address");
+                                    }
+                                    else{
+                                        // errorMessage.textContent = '';
+                                        alert("Login Success");
+                                        window.location.href = '/chiefAction';
+                                    }
+                                }
+                                else{
+                                    // errorMessage.textContent = 'Invalid Credentials!';
+                                    alert("Invalid Credentials!");
+                                }
+                            }
+                            else if(ele[1].trim()=='/vote'){
+                                const res = await fetch('/generate_hash', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({value: aadhaar.concat(" ", voterID)}),
+                                });
+                                if(res.ok){
+                                    data = await res.json();
+                                    hash = data.result;
+                                    const voteAddress = await safeVoteContract.methods.voterAddressMap(hash).call();
+                                    currentAddress = await web3.utils.toChecksumAddress(currentAccount);
+                                    console.log(hash, voteAddress, currentAddress);
+                                    const proceed = await safeVoteContract.methods.votingOpen().call();
+                                    if(proceed){
+                                        const contractResponse = await safeVoteContract.methods.checkRegister(hash).call({from: currentAddress});
+                                        if(contractResponse == 'VOTER NOT REGISTERED'){
+                                            alert(contractResponse);
+                                            window.location.href = '/category';
+                                        }
+                                        else if(contractResponse == 'VOTER REGISTERED WITH DIFFERENT ADDRESS'){
+                                            alert(contractResponse);
+                                        }
+                                        else{
+                                            // alert(contractResponse);
+                                            const voterDetails = await safeVoteContract.methods.voterDetailsMap(currentAddress).call();
+                                            if(voterDetails['hasVoted']==false){
+                                                window.location.href = '/vote/'+hash;
+                                            }
+                                            else{
+                                                alert("VOTER ALREADY VOTED");
+                                                window.location.href = '/category';
+                                            }
+                                        }
+                                    }
+                                    else{
+                                        alert('Still Voting is not opened!!');
+                                        window.location.href = '/category';
+                                    }
+                                }
+                                else{
+                                    error = await res.json();
+                                    alert("Got Error while generating hash");
+                                    console.error("Error: ",error.message || 'Unkown Error - ',error);
+                                }
+                            }
+                            else{
+                                const res = await fetch('/generate_hash', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({value: aadhaar.concat(" ", voterID)})
+                                });
+                                if(res.ok){
+                                    const data = await res.json();
+                                    hash = data.result;
+                                    let district;
+                                    let state;
+                                    for(let ind=0;ind<cookies.length;ind++){
+                                        let ele = cookies[ind].split('=');
+                                        if(ele[0].trim() == 'district'){
+                                            district = ele[1].trim();
+                                        }
+                                        else if(ele[0].trim() == 'state'){
+                                            state = ele[1].trim();
+                                        }
+                                    }
+                                    console.log(hash,district,state);
+                                    try {
+                                        // Simulate the transaction
+                                        await web3.eth.call({
+                                            from: currentAccount,
+                                            to: safeVoteAddress,
+                                            data: safeVoteContract.methods.registerVoter(hash, district, state, aadhaar, voterID).encodeABI(),
+                                        });
+                                        // If call succeeds, then proceed with the transaction
+                                        const tx = {
+                                            from: currentAccount,
+                                            to: safeVoteAddress,
+                                            data: safeVoteContract.methods.registerVoter(hash, district, state, aadhaar, voterID).encodeABI(),
+                                        };
+                                        const txHash = await web3.eth.sendTransaction(tx);
+                                        console.log("Transaction Receipt: ",txHash);
+                                        alert("Voter Registered Successfully");
+                                        window.location.href = '/category';
+                                    } catch (error) {
+                                        const ind = error.message.indexOf('revert');
+                                        if(ind!=-1){
+                                            const msg = ((error.message.split('\n'))[2].split(':'));
+                                            alert(msg[msg.length-1].slice(7, -2));
+                                            console.log(msg[msg.length-1].slice(7,-2));
+                                        }
+                                        else{
+                                            alert("You got an anonymous Transaction Error");
+                                            console.log("Transaction Error: ",error);
+                                        }
+                                    }
+                                }
+                                else{
+                                    error = await res.json();
+                                    alert("Got Error while generating hash");
+                                    console.error("Error: ",error.message || 'Unkown Error - ',error);
+                                }
+                            }
+                        }
+                    }
+                }
+                else{
+                    alert(`Face Not Matched!
+                            Authentication Failed`);
+                }
+                
+
+                // Show reauthentication prompt
+                // reauthDiv.style.display = "block";
+
+            } catch (error) {
+                console.error('Error sending image:', error);
+                statusText.textContent = "Error processing request.";
+                captureButton.disabled = false;
+                await startCamera();
+            }
+        });
+
+        // Handle Reauthentication
+        yesButton.addEventListener('click', async () => {
+            reauthDiv.style.display = "none";
+            statusText.textContent = "";
+            captureButton.disabled = false;
+            await startCamera();
+        });
+
+        // Redirect to Thank You Page
+        noButton.addEventListener('click', () => {
+            navigation = true;
+            window.location.href = "/chiefAction"; // Redirect to Thank You page
+        });
+
+        // Handle tab or window close
+        // Detect page unload or tab closure
+        // window.addEventListener('beforeunload', async function (event) {
+        //     // console.log(navigation);
+        //     // await new Promise(resolve => setTimeout(resolve, 5000));
+        //     // alert("Navigation =", navigation);
+        //     if(navigation == false){
+        //         await fetch('/close_session', { method: 'POST', credentials: 'include'})
+        //             .then(response => response.json())
+        //             .then(data => console.log('Session closed:', data))
+        //             .catch(err => console.error('Error closing session:', err));
+        //         // alert("You are closing the window/tab");
+        //     }
+        // });
+    </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+/* General Styling */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Georgia", serif;
+    background: linear-gradient(135deg, #ffe5d9, #a8dadc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+    padding: 30px;
+    text-align: center;
+}
+
+header .logo {
+    max-width: 100px;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #1d3557;
+    margin-bottom: 20px;
+}
+
+/* Form Styling */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    text-align: left;
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #457b9d;
+    margin-bottom: 5px;
+}
+
+.form-group .icon {
+    margin-right: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    transition: box-shadow 0.3s ease;
+}
+
+.form-group input:focus {
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    display: none;
+}
+
+/* Button Styling */
+button {
+    background-color: #1d3557;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #457b9d;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* Footer Styling */
+footer p {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+.watermark {
+    font-style: italic;
+    color: #457b9d;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .form-group label {
+        font-size: 1rem;
+    }
+
+    .form-group input {
+        font-size: 1rem;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .form-group input {
+        width: 90%;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    footer p {
+        font-size: 0.8rem;
+    }
+}

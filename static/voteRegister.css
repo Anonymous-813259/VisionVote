@@ -1,0 +1,130 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: Georgia, serif;
+    background: linear-gradient(to bottom, #f5e3d8, #d7f2e3);
+    color: #333;
+    overflow-x: hidden;
+  }
+  
+  /* Header Section */
+  .header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: linear-gradient(to right, #f5d7c6, #c7e8d1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  .header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+  .header .title {
+    font-size: 2rem;
+    font-family: "Playfair Display", serif;
+    color: #2c3e50;
+  }
+  .header-right {
+    display: flex;
+    gap: 1rem;
+  }
+  .help-btn {
+    padding: 0.5rem 1rem;
+    background: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .language-select {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Hero Section */
+  .hero {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    /* background: url('hero-bg.png') no-repeat center center; */
+    /* background-size: cover; */
+  }
+  .hero-title {
+    font-size: 3rem;
+    color: #2c3e50;
+    text-align: center;
+  }
+  .hero-subtitle {
+    font-size: 1.2rem;
+    color: #555;
+    text-align: center;
+  }
+  .cta-button {
+    padding: 0.8rem 2rem;
+    background: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+  }
+  
+  /* Form Section */
+  .form-container {
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    width: 60%;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  }
+  .input-group {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  .input-group input,
+  .input-group select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .icon {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #888;
+  }
+  .submit-btn {
+    padding: 0.8rem 2rem;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+  }
+  
+  /* Watermark */
+  .watermark {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    color: rgba(0, 0, 0, 0.05);
+    pointer-events: none;
+  }
+  

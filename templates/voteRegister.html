@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voter Registration Portal</title>
+  <link rel="stylesheet" href="../static/voteRegister.css">
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <!-- <div class="logo">🌊 <span>Nithin Reddy</span></div> -->
+    <h1 class="title">Voter Registration Portal</h1>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <!-- <div class="hero-left">
+        <img src="voters-celebrating.png" alt="Voters Celebrating" class="hero-image">
+      </div> -->
+      <div class="hero-right">
+        <h2 class="hero-title">Join the Nation’s Democracy</h2>
+        <p class="hero-subtitle">Your vote shapes the future!</p>
+        <!-- <button class="cta-button">Get Started</button> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Registration Form Section -->
+  <section class="registration">
+    <div class="form-container">
+      <h2 class="form-title">Register as a Voter</h2>
+      <form id="voter-form">
+        <label for="aadhaar">Aadhaar Number</label>
+        <div class="input-group">
+          <input type="text" id="aadhaar" name="aadhaar" placeholder="Enter your Aadhaar Number">
+          <span class="icon">🆔</span>
+        </div>
+        <label for="voter-id">Voter ID</label>
+        <div class="input-group">
+          <input type="text" id="voter-id" name="voter-id" placeholder="Enter your Voter ID">
+          <span class="icon">📄</span>
+        </div>
+
+        <label for="state">Residing State</label>
+        <div class="input-group">
+            <select id="state" name="state">
+                <!-- <option value="" disabled selected>Select your State</option> -->
+                <option value="">-- Select your State --</option>
+                <!-- State options go here -->
+            </select>
+            <span class="icon">🗺️</span>
+        </div>
+
+        <label for="district">Residing District</label>
+        <div class="input-group">
+            <select id="district" name="district">
+                <!-- <option value="" disabled selected>Select your District</option> -->
+                <option value="">-- Select your District --</option>
+                <!-- District options go here -->
+            </select>
+            <span class="icon">📍</span>
+        </div>
+        <button type="submit" class="submit-btn">Register Now</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Watermark -->
+  <div class="watermark">NR</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.7.3/dist/web3.min.js"></script>
+  <script src="../static/voteRegister.js"></script>
+</body>
+</html>

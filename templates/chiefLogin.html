@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chief Login</title>
+    <link rel="stylesheet" href="../static/chiefLogin.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <!-- <img src="logo.png" alt="Election Commission Logo" class="logo"> -->
+            <h1>Chief Login</h1>
+        </header>
+        <form class="login-form">
+            <div class="form-group">
+                <label for="aadhaar"><i class="icon">🔑</i> Aadhaar Number</label>
+                <input type="text" id="aadhaar" placeholder="Enter your Aadhaar Number" required>
+                <small class="error-message" id="aadhaar-error">Invalid Aadhaar Number</small>
+            </div>
+            <div class="form-group">
+                <label for="chief-id"><i class="icon">🆔</i> Chief's ID</label>
+                <input type="text" id="chief-id" placeholder="Enter Chief's ID" required>
+                <small class="error-message" id="chief-id-error">Invalid Chief's ID</small>
+            </div>
+            <p id="error-message-display" style="font-style: italic;"></p>
+            <button type="submit" id="submit-btn">Submit</button>
+        </form>
+        <footer>
+            <!-- <p>Designed by <span class="watermark">Nithin Reddy</span></p> -->
+             <p style="opacity: 24%;">Designed by <span class="watermark">NR</span></p>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.7.3/dist/web3.min.js"></script>
+    <script src="../static/chiefLogin.js"></script>
+    <!-- <script>
+        window.pythonVars = {
+            abi: {{"{{abi}}"}},
+            address: "{{address}}",
+        };
+    </script> -->
+</body>
+</html>

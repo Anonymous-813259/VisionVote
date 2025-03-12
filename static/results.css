@@ -1,0 +1,212 @@
+/* General Reset */
+body, h1, h2, p, a, table, th, td, img {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Georgia, serif;
+    background: linear-gradient(to bottom, #fef6e4, #e8f5e9);
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Header Section */
+  .header {
+    width: 100%;
+    background: linear-gradient(to right, peachpuff, lightgreen);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    padding-left: 0;
+    padding-right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+  }
+  
+  .title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: navy;
+  }
+  
+  .nav-links a {
+    margin-left: 1rem;
+    text-decoration: none;
+    color: blue;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    text-decoration: underline;
+    color: red;
+  }
+  
+  /* Hero Section */
+  .hero {
+    text-align: center;
+    padding: 2rem 2rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  .headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: navy;
+    margin-bottom: 1rem;
+  }
+  
+  .subheadline {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: lightgrey;
+  }
+  
+  .illustration img {
+    margin-top: 2rem;
+    width: 300px;
+    height: auto;
+  }
+  
+  /* Results Table Section */
+  .results-section {
+    padding: 3rem 1rem;
+    padding-left: 0;
+    padding-right: 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .table-container {
+    width: 70%;
+    overflow-x: auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  
+  .results-table thead {
+    background: linear-gradient(to right, peachpuff, lightblue);
+  }
+  
+  .results-table th {
+    font-family: Georgia, serif;
+    font-size: 1.5rem;
+    padding: 1rem;
+    color: navy;
+    border-bottom: 2px solid green;
+  }
+  
+  .results-table tbody tr:nth-child(odd) {
+    background: #f2f2f2;
+  }
+  
+  .results-table tbody tr:nth-child(even) {
+    background: #e9f7ff;
+  }
+  
+  .results-table tbody tr:hover {
+    background: rgba(0, 150, 150, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .results-table .winner {
+    background: linear-gradient(to right, lightgreen, green);
+    font-weight: bold;
+    /* color: white; */
+    color: green;
+  }
+  
+  .results-table .winner td:first-child::before {
+    content: "🏆 ";
+  }
+  
+  /* Stats Section */
+  .stats-section {
+    text-align: center;
+    padding: 2rem;
+    padding-left: 0;
+    padding-right: 0;
+    background: linear-gradient(to bottom, #e3f2fd, #e8f5e9);
+  }
+  
+  .stats-section h3 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    font-family: 'Playfair Display', serif;
+    color: navy;
+  }
+  
+  .stats-section p {
+    font-size: 1.2rem;
+    color: grey;
+  }
+  
+  /* Footer Section */
+  .footer {
+    width: 100%;
+    background: navy;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 0.9rem;
+  }
+  
+  .footer a {
+    color: lightblue;
+    text-decoration: none;
+    margin-left: 1rem;
+  }
+  
+  .footer a:hover {
+    text-decoration: underline;
+    color: red;
+  }
+  
+  .watermark {
+    text-align: center;
+    font-size: 1.2rem;
+    font-style: italic;
+  }
+  
+/* Stats Section */
+.stats-section {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(to bottom, #e3f2fd, #e8f5e9);
+  }
+  
+  .stats-section h3 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    font-family: 'Playfair Display', serif;
+    color: navy;
+  }
+  
+  .charts-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  canvas {
+    height: auto;
+  }

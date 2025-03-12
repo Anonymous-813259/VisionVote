@@ -1,0 +1,110 @@
+/* General Styling */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Georgia", serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #a8dadc, #457b9d);
+    color: #1d3557;
+}
+
+.container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Flexible width for small screens */
+    max-width: 400px; /* Restrict to a maximum width */
+}
+
+/* Header Styling */
+header h1 {
+    font-size: 2rem;
+    color: #1d3557;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1rem;
+    color: #1a3b4f;
+    margin-bottom: 20px;
+}
+
+/* Button Styling */
+#connect-button {
+    background-color: #ffccb6;
+    color: #1d3557;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 80%; /* Make button size flexible */
+    max-width: 250px; /* Restrict to a maximum width */
+}
+
+#connect-button:hover {
+    background-color: #1d3557;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+/* Footer Styling */
+footer p {
+    font-size: 0.8rem;
+    color: #1d3557;
+    margin-top: 20px;
+}
+
+.watermark {
+    font-style: italic;
+    font-size: 0.8rem;
+    color: #457b9d;
+}
+
+/* Background Decorations */
+body::before {
+    content: "";
+    position: absolute;
+    top: 10%;
+    left: 20%;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.3);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    z-index: 0;
+}
+
+body::after {
+    content: "";
+    position: absolute;
+    bottom: 15%;
+    right: 25%;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.3);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    z-index: 0;
+}
+
+/* Responsive Styling */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    header p {
+        font-size: 0.9rem;
+    }
+
+    #connect-button {
+        font-size: 0.9rem;
+        padding: 12px 20px;
+    }
+}

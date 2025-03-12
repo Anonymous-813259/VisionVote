@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Login Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Georgia:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/voterLogin.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>Voter Login Portal</h1>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <!-- <div class="hero-left">
+            <img src="secure-vote-illustration.png" alt="Secure Voting" class="illustration">
+        </div> -->
+        <div class="hero-right">
+            <h2>Secure Your Vote with Confidence!</h2>
+            <p>Your identity ensures your democracy.</p>
+        </div>
+    </section>
+
+    <!-- Login Form Section -->
+    <section class="login-form">
+        <div class="form-container">
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="aadhaar">Aadhaar Number</label>
+                    <input type="text" id="aadhaar" placeholder="Enter Aadhaar Number" maxlength="12" required>
+                </div>
+                <div class="input-group">
+                    <label for="voterId">Voter ID</label>
+                    <input type="text" id="voterId" placeholder="Enter Voter ID" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Security Assurance Section -->
+    <section class="security-assurance">
+        <p><span class="lock-icon">🔒</span> Your data is encrypted and protected with state-of-the-art technology.</p>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.7.3/dist/web3.min.js"></script>
+    <script src="../static/voterLogin.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cast Your Vote</title>
+  <link rel="stylesheet" href="../static/vote.css">
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <h1 class="title">Cast Your Vote</h1>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h2 class="headline">Your Vote, Your Voice!</h2>
+    <p class="subheadline">Select your desired candidate and help shape the future.</p>
+  </section>
+
+  <!-- Voting Section -->
+  <section class="voting-section">
+    <div class="voting-container" id="candidates">
+      <!-- Candidate cards dynamically generated -->
+    </div>
+  </section>
+
+  <!-- Security Assurance Section -->
+  <section class="security-section">
+    <p><span class="lock-icon">🔒</span> Your vote is anonymous and securely encrypted.</p>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="footer-center watermark" style="opacity: 24%;">
+        Designed by <span class="watermark">NR</span>
+    </div>
+  </footer>
+
+  <!-- Modal -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <p id="modal-text"></p>
+      <button id="confirm-vote" class="btn-confirm">Yes, Confirm</button>
+      <button id="cancel-vote" class="btn-cancel">No, Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    var pythonVar = "{{hash}}";
+    console.log(pythonVar);
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.7.3/dist/web3.min.js"></script>
+  <script src="../static/vote.js"></script>
+</body>
+</html>

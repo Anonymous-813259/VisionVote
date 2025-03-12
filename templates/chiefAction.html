@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chief Action</title>
+    <link rel="stylesheet" href="../static/chiefAction.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <!-- <img src="logo.png" alt="Election Commission Logo" class="logo"> -->
+            <h1>Chief Order Dashboard</h1>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Candidate Registration Section -->
+            <section class="candidate-registration">
+                <h2>Candidate Registration</h2>
+                <p class="subtext">Register candidates for the upcoming elections with verified details.</p>
+                <form class="registration-form">
+                    <div class="form-group">
+                        <label for="candidate-id">ID</label>
+                        <input type="number" id="candidate-id" placeholder="Enter Candidate ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="candidate-name">Name</label>
+                        <input type="text" id="candidate-name" placeholder="Enter Candidate Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="candidate-age">Age</label>
+                        <input type="number" id="candidate-age" placeholder="Enter Candidate Age" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="party-affiliation">Party Affiliation</label>
+                        <input type="text" id="party-affiliation" name="partyName" placeholder="Enter Party Affiliation" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">Desired State</label>
+                        <select id="state" name="state" required>
+                            <!-- <option value="" disabled selected>Select your State</option> -->
+                            <option value="">-- Select your State --</option>
+                            <!-- State options go here -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="district">Desired District</label>
+                        <select id="district" name="district" required>
+                            <!-- <option value="" disabled selected>Select your District</option> -->
+                            <option value="">-- Select your District --</option>
+                            <!-- District options go here -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="upload-documents">Party Image</label>
+                        <input type="file" id="image" name="image" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Register Candidate</button>
+                </form>
+                <button class="back-button-small" onclick="goBack()">&#8592;</button>
+            </section>
+
+            <!-- Minor Tasks Section -->
+            <aside class="minor-tasks">
+                <div class="task">
+                    <i class="icon">⏰</i>
+                    <p>Start Time for Candidate Registration</p>
+                    <button onclick="startCandidateRegistration()">Start Time</button>
+                </div>
+                <div class="task">
+                    <i class="icon">⏰</i>
+                    <p>Start Time for Voter Registration</p>
+                    <button onclick="startVoterRegistration()">Start Time</button>
+                </div>
+                <div class="task">
+                    <i class="icon">⏰</i>
+                    <p>Start Time for Voting</p>
+                    <button onclick="startVoting()">Start Time</button>
+                </div>
+                <div class="task">
+                    <i class="icon">⏰</i>
+                    <p>Start Time for Results Viewing</p>
+                    <button onclick="startResultView()">Start Time</button>
+                </div>
+                <div class="task">
+                    <i class="icon">🔄</i>
+                    <p>Update Chief</p>
+                    <form class="update-chief">
+                        <input type="text" placeholder="Aadhaar Number" id="new-aadhaar" required>
+                        <input type="text" placeholder="Chief's ID" id="new-id" required>
+                        <button type="submit">Update Chief Info</button>
+                    </form>
+                </div>
+            </aside>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <!-- <p>Designed by <span class="watermark">Nithin Reddy</span></p> -->
+             <p style="opacity: 24%;">Designed by <span class="watermark">NR</span></p>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.7.3/dist/web3.min.js"></script>
+    <script src="../static/chiefAction.js"></script>
+</body>
+</html>
